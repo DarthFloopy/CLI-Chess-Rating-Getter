@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [[ ! -n $1 ]]; then
+    echo "Usage: getrating [ --quick | --blitz ] <US Chess ID>"
+    if [[ -n $MY_USCF_ID ]]; then
+        printf "Get rating for ${MY_USCF_ID}? (y/n) "
+        read -r reply
+        if [[ $reply == y ]]; then
+            set -- "${MY_USCF_ID}"  # change $1
+        else
+            exit 1
+        fi
+    else
+        echo "To set a default US Chess ID, set the $MY_USCF_ID environment variable."
+        exit 1
+    fi
+fi
+
+field_num=1
+
+if [[ $1 == "--quick" ]]; then
+    field_num=2
+    shift
+elif [[ $1 == "--blitz" ]]; then
+    field_num=3
+    shift
+fi
+
+curl -s http://www.uschess.org/msa/thin3.php?$1  | \
+    grep "rating$field_num"                      | \
+        grep -o "value='.*'"                     | \
+            tr -d "(value=')|'|*"
