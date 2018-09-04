@@ -11,7 +11,7 @@ if [[ ! -n $1 ]]; then
             exit 1
         fi
     else
-        echo "To set a default US Chess ID, set the $MY_USCF_ID environment variable."
+        echo "To set a default US Chess ID, set the "'$MY_USCF_ID'" environment variable."
         exit 1
     fi
 fi
