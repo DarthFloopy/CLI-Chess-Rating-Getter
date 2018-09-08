@@ -11,8 +11,9 @@ Dependencies:
 Installation:
 Just download or copy/paste into a text file, then run `chmod u+x <filename>`.
 
-How to Use
-From getrating --help:
+How to Use:
+From `getrating --help`:
+
     Usage: getrating [ --quick | -q | --blitz | -b ] --default-id | -d | <US CHESS ID>"
         echo "This program gets a player's chess rating from the US Chess website."
         echo "  By default, a player's regular rating is retrieved."
