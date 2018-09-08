@@ -12,7 +12,7 @@ Installation:
 Just download or copy/paste into a text file, then run `chmod u+x <filename>`.
 
 How to Use:
-From `getrating --help`:
+ - From `getrating --help`:
 
     Usage: getrating [ --quick | -q | --blitz | -b ] --default-id | -d | <US CHESS ID>
         This program gets a player's chess rating from the US Chess website."
