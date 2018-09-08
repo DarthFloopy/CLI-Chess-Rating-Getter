@@ -1,32 +1,59 @@
 #!/bin/bash
 
-if [[ ! -n $1 ]]; then
-    echo "Usage: getrating [ --quick | --blitz ] <US Chess ID>"
-    if [[ -n $MY_USCF_ID ]]; then
-        printf "Get rating for ${MY_USCF_ID}? (y/n) "
-        read -r reply
-        if [[ $reply == y ]]; then
-            set -- "${MY_USCF_ID}"  # change $1
-        else
-            exit 1
-        fi
-    else
-        echo "To set a default US Chess ID, set the "'$MY_USCF_ID'" environment variable."
-        exit 1
-    fi
+if [[ ! $1 ]]; then
+    echo "Usage: getrating [ --quick | -q | --blitz | -b ] --default-id | -d | <US CHESS ID>"
+    echo 'Alternatively, try `getrating --help` for help.'
+    exit 1
 fi
 
 field_num=1
+id_to_get=0
 
-if [[ $1 == "--quick" ]]; then
-    field_num=2
-    shift
-elif [[ $1 == "--blitz" ]]; then
-    field_num=3
-    shift
+while [[ $1 ]]; do
+    case $1 in
+    "--help" | "-h")
+        echo "Usage: getrating [ --quick | -q | --blitz | -b ] --default-id | -d | <US CHESS ID>"
+        echo "This program gets a player's chess rating from the US Chess website."
+        echo "  By default, a player's regular rating is retrieved."
+        echo "  If --quick or --blitz is specified, the player's quick or blitz rating is retrieved."
+        echo "  The --default-id option tells the program to use the default US Chess ID, which is"
+        echo '    stored in the $MY_USCF_ID environment variable.'
+        exit 0
+        ;;
+    "--quick" | "-q")
+        field_num=2
+        ;;
+    "--blitz" | "-b")
+        field_num=3
+        ;;
+    "--default-id" | "-d")
+        if [[ $MY_USCF_ID ]]; then
+            id_to_get=$MY_USCF_ID
+        else
+            echo 'getrating: no default USCF ID set in $MY_USCF_ID'
+            echo 'To set a default US Chess ID, set the $MY_USCF_ID environment variable.'
+            exit 1
+        fi
+        ;;
+    [0-9]*)
+        id_to_get=$1
+        ;;
+    *)
+        echo "getrating: invalid argument"
+        exit 1
+    esac
+    
+    shift    
+done
+
+if [[ $id_to_get -eq 0 ]]; then
+    echo "getrating: no US Chess ID specified"
+    echo 'To set a default US Chess ID, set the $MY_USCF_ID environment variable.'
+    exit 1
 fi
 
-curl -s http://www.uschess.org/msa/thin3.php?$1  | \
-    grep "rating$field_num"                      | \
-        grep -o "value='.*'"                     | \
+
+curl -s http://www.uschess.org/msa/thin3.php?${id_to_get}  | \
+    grep "rating${field_num}"                              | \
+        grep -o "value='.*'"                               | \
             tr -d "(value=')|'|*"
