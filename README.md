@@ -21,3 +21,5 @@ Usage: getrating [ --quick | -q | --blitz | -b ] --default-id | -d | <US CHESS I
     The --default-id option tells the program to use the default US Chess ID, which is"
      stored in the $MY_USCF_ID environment variable.'
 ```
+### Interested in contributing?
+This program needs to be reworked to use GNU `getopt`.
