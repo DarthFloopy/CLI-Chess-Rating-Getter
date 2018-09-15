@@ -1,5 +1,5 @@
 # CLI-Chess-Rating-Getter
-## A UNIX/Linux/Mac command-line tool to get a player's current rating from the US Chess Website.
+## A UNIX command-line tool to get a player's current rating from the US Chess Website.
 
 This program was written and tested on a Mac.
 
@@ -7,9 +7,6 @@ This program was written and tested on a Mac.
  - bash
  - curl
  - An internet connection
-
-### Installation:
-Just download or copy/paste into a text file, then run `chmod u+x <filename>`.
 
 ### How to Use:
 From `getrating --help`:
