@@ -1,9 +1,8 @@
 # CLI-Chess-Rating-Getter
-A UNIX command-line tool to get a player's current rating from the US Chess Website.
+A UNIX command-line tool to get a player's current rating from the US Chess website.
 
-### Dependencies:
- - bash
- - curl
+### Important dependencies:
+ - `curl`
  - An internet connection
 
 ### How to Use:
@@ -18,7 +17,7 @@ Usage: getrating [ --quick | -q | --blitz | -b ] --default-id | -d | <US CHESS I
 ```
 
 ### How it works
-This script uses a semi-hidden mininal rating lookup page on uschess.org (used like http://www.uschess.org/msa/thin3.php?12345678). See "'Thin' client access to MSA data" in http://www.uschess.org/msa/Index.php .
+This script uses a semi-hidden mininal rating lookup page on uschess.org (use it like this: http://www.uschess.org/msa/thin3.php?12345678). See "'Thin' client access to MSA data" in http://www.uschess.org/msa/Index.php .
 
 This program was written and tested on a Mac, but it should work on Unix-ish systems.
 
